@@ -10,30 +10,29 @@ namespace DjurAPI.DAL
         {
             if (DB.Animals.Any() == false)
             {
-                DB.Animals.Add(new Animal()
-                {
+                DB.Animals.AddRange(new List<Models.Animal>
+               {
+                    new Animal {
                     Id = 1,
                     Species = "Cat",
                     Weight = 4.5,
-                    IsFlying = false
-                });
+                    IsFlying = false},
 
-                DB.Animals.Add(new Animal
-                {
+                    new Animal {
                     Id = 2,
                     Species = "Fish",
-                    Weight = 1.2,
+                    Weight = 2.5,
                     IsFlying = false
-                });
+                    },
 
-
-                DB.Animals.Add(new Animal
-                {
+                    new Animal
+                    {
                     Id = 3,
                     Species = "Bird",
-                    Weight = 2.2,
+                    Weight = 1.2,
                     IsFlying = true
-                });
+                    }
+               });
             }
             await Task.Delay(dbSpeed);
             return DB.Animals;
@@ -55,6 +54,24 @@ namespace DjurAPI.DAL
                 existingAnimal.Weight = animal.Weight;
                 existingAnimal.IsFlying = animal.IsFlying;
             }
+        }
+
+        public static async Task CreateAnimal(Models.Animal animal)
+        {
+            if (DB.Animals == null)
+                DB.Animals = new List<Models.Animal>();
+
+            animal.Id = DB.Animals.Any() ? DB.Animals.Max(e => e.Id) + 1 : 1;
+            DB.Animals.Add(animal);
+
+            await Task.Delay(dbSpeed);
+        }
+
+        public static async Task DeleteAnimal(int id)
+        {
+            await Task.Delay(dbSpeed);
+            var animalToDelete = DB.Animals.Where(a => a.Id == id).SingleOrDefault();
+            DB.Animals.Remove(animalToDelete);
         }
     }
 }

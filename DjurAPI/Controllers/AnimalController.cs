@@ -25,5 +25,16 @@ namespace DjurAPI.Controllers
         {
            await DAL.AnimalManager.UpdateAnimal(id, animal);
         }
+        [HttpPost] 
+        public async Task CreateAnimal([FromBody] Models.Animal animal)
+        {
+            await DAL.AnimalManager.CreateAnimal(animal);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task DeleteAnimal(int id)
+        {
+            await DAL.AnimalManager.DeleteAnimal(id);
+        }
     }
 }
