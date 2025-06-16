@@ -19,5 +19,11 @@ namespace DjurAPI.Controllers
         {
             return await DAL.AnimalManager.GetAnimalById(id);
         }
+
+        [HttpPut("{id}")]
+        public async Task PutAnimal(int id, [FromBody] Models.Animal animal)
+        {
+           await DAL.AnimalManager.UpdateAnimal(id, animal);
+        }
     }
 }

@@ -12,10 +12,10 @@ namespace DjurAPI.DAL
             {
                 DB.Animals.Add(new Animal()
                 {
-                        Id = 1,
-                        Species = "Cat",
-                        Weight = 4.5,
-                        IsFlying = false
+                    Id = 1,
+                    Species = "Cat",
+                    Weight = 4.5,
+                    IsFlying = false
                 });
 
                 DB.Animals.Add(new Animal
@@ -43,6 +43,18 @@ namespace DjurAPI.DAL
         {
             await Task.Delay(dbSpeed);
             return DB.Animals.Where(a => a.Id == id).SingleOrDefault();
+        }
+
+        public static async Task UpdateAnimal(int id, Models.Animal animal)
+        {
+            await Task.Delay(dbSpeed);
+            var existingAnimal = DB.Animals.Where(a => a.Id == id).SingleOrDefault();
+            if (existingAnimal != null)
+            {
+                existingAnimal.Species = animal.Species;
+                existingAnimal.Weight = animal.Weight;
+                existingAnimal.IsFlying = animal.IsFlying;
+            }
         }
     }
 }
