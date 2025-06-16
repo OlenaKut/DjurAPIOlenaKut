@@ -1,0 +1,6 @@
+@DjurAPI_HostAddress = http://localhost:5197
+
+GET {{DjurAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
